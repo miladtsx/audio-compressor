@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <script src="./res/jquery-2.2.4.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./res/style.css" />
+    <title>کاهش حجم فایل‌های صوتی</title>
+  </head>
+  <body class="rtl">
+    <br />
+
+    <div class="container">
+      <div id="drop-area">
+        <form class="my-form">
+          <p>
+            <strong class="yekan">
+              بنداز اینجا ...
+            </strong>
+          </p>
+
+          <input
+            type="file"
+            id="fileElem"
+            accept="audio/*"
+            onchange="handleFiles(this.files)"
+          />
+          <label class="button yekan" for="fileElem"
+            >یا که دستی خودت انتخاب کن</label
+          >
+        </form>
+        <progress id="progress-bar" max="100" value="0"></progress>
+        <hr />
+        <div id="gallery">
+          <p class="yekan" id="fileName"></p>
+          <p class="yekan" id="fileSize"></p>
+        </div>
+      </div>
+    </div>
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

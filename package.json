@@ -1,0 +1,23 @@
+{
+  "name": "audio-compressor",
+  "version": "1.0.0",
+  "description": "Audio compressor Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "audio-compressor",
+    "mp3-compressor",
+    "bitrate-decreasor"
+  ],
+  "author": "Milad Mehdizade <milad.mehdizade1394@gmail.com>",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "electron": "^7.1.9"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "node-lame": "^1.2.0"
+  }
+}
