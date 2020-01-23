@@ -1,4 +1,4 @@
-const compressHelper = require('./lib/compress');
+const AudioCompressor = require('./lib/compress');
 
 let dropArea = document.getElementById("drop-area")
 
@@ -52,18 +52,26 @@ function initializeProgress(numFiles) {
     }
 }
 
-function updateProgress(fileNumber, percent) {
-    uploadProgress[fileNumber] = percent
-    let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
-    console.debug('update', fileNumber, percent, total)
-    progressBar.value = total
+function updateProgress([progress, eta]) {
+    progressBar.value = progress;
+    document.getElementById('eta').innerHTML = eta;
 }
+
+function finishProgress() {
+    progressBar.visible = false;
+}
+
 
 function handleFiles(files) {
     files = [...files]
     initializeProgress(files.length)
-    files.forEach(compressFile)
-    files.forEach(previewFile)
+    files.forEach(f => {
+        clearUI();
+        previewFile(f);
+        compressFile(f);
+    })
+    // files.forEach(compressFile)
+    // files.forEach(previewFile)
 }
 
 function formatBytes(a, b) { if (0 == a) return "0 Bytes"; var c = 1024, d = b || 2, e = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], f = Math.floor(Math.log(a) / Math.log(c)); return parseFloat((a / Math.pow(c, f)).toFixed(d)) + " " + e[f] }
@@ -78,37 +86,45 @@ function previewFile(file) {
     progressBar.value = 100;
 }
 
-function compressFile(file, i) {
-
-    //Compress File 
-    
-    const compressor = new compressHelper('', '', 32);
-    
-
-
-    //   var url = 'https://api.cloudinary.com/v1_1/joezimim007/image/upload'
-    //   var xhr = new XMLHttpRequest()
-    //   var formData = new FormData()
-    //   xhr.open('POST', url, true)
-    //   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-
-         // Update progress (can be used to show progress indicator)
-    //   xhr.upload.addEventListener("progress", function(e) {
-    //     updateProgress(i, (e.loaded * 100.0 / e.total) || 100)
-    //   })
-
-    //   xhr.addEventListener('readystatechange', function(e) {
-    //     if (xhr.readyState == 4 && xhr.status == 200) {
-    //       updateProgress(i, 100) // <- Add this
-    //     }
-    //     else if (xhr.readyState == 4 && xhr.status != 200) {
-    //       // Error. Inform the user
-    //     }
-    //   })
-
-    //   formData.append('upload_preset', 'ujpu6gyk')
-    //   formData.append('file', file)
-    //   xhr.send(formData)
+function clearUI() {
+    progressBar.value = 0;
+    document.getElementById('eta').innerHTML = '0:00';
+    document.getElementById('fileName').innerHTML = `نام:‌ -`;
+    document.getElementById('fileSize').innerHTML = `حجم: -`;
+    document.getElementById('messageBox').innerHTML = '';
+}
 
 
+async function compressFile(file, i) {
+    try {
+        const compressor = new AudioCompressor(file, 32);
+        compressor.addProgressCallbacks(updateProgress, finishProgress)
+
+        await compressor.compressNow();
+
+        messageToUser('info', 'فشرده‌سازی ظاهرا موفقیت‌آمیز بوده. یه پوشه به اسم compressed ساختم، فایل‌های فشرده اون توعه.');
+    }
+    catch (err) {
+        clearUI();
+        messageToUser('danger', err);
+    }
+}
+
+function messageToUser(type, message) {
+    let messageAlert = document.createElement('div');
+    messageAlert.className = `alert alert-${type} alert-dismissible fade show`;
+    messageAlert.setAttribute('role', 'alert');
+    let id = Date.now()
+    messageAlert.setAttribute('id', id);
+    autoDismissAlert(id);
+    messageAlert.innerHTML = message;
+
+    let messageArea = document.getElementById('messageBox');
+    messageArea.appendChild(messageAlert);
+}
+
+function autoDismissAlert(id) {
+    setTimeout(() => {
+        document.getElementById(id).remove();
+    }, 60000);
 }

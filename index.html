@@ -2,25 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-
+    <script src="./res/jquery-2.2.4.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link
       rel="stylesheet"
       href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
-    <script src="./res/jquery-2.2.4.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./res/style.css" />
     <title>کاهش حجم فایل‌های صوتی</title>
   </head>
   <body class="rtl">
     <br />
 
+    <div class="container-fluid">
+      <div id="messageBox">
+        <!-- Message To Show -->
+      </div>
+    </div>
+
     <div class="container">
       <div id="drop-area">
         <form class="my-form">
           <p>
             <strong class="yekan">
-              بنداز اینجا ...
+              فایل وویس رو بنداز اینجا ...
             </strong>
           </p>
 
@@ -34,7 +39,13 @@
             >یا که دستی خودت انتخاب کن</label
           >
         </form>
-        <progress id="progress-bar" max="100" value="0"></progress>
+        <progress
+          class="progressBar"
+          id="progress-bar"
+          max="100"
+          value="0"
+        ></progress>
+        <label id="eta" style="font-weight: bolder;">0:00</label>
         <hr />
         <div id="gallery">
           <p class="yekan" id="fileName"></p>

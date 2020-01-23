@@ -13,15 +13,17 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 450,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: false
-    }
+      nodeIntegration: true
+    },
+    icon: './res/favicon.png'
   })
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
+  // mainWindow.removeMenu()
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
