@@ -8,12 +8,11 @@ To run this application you'll need [Lame](https://lame.buanzo.org/) installed o
 
 
 ## Main window
-![main_window](/res/images/main.png)
+<img src="https://raw.githubusercontent.com/MehdizadeMilad/audio-compressor/master/res/images/main.png" width='70%' height='70%' alt="main window" />
 
-![compressed_window](/res/images/compressed.png)
+<img src="https://raw.githubusercontent.com/MehdizadeMilad/audio-compressor/master/res/images/compressed.png" width='70%' height='70%' alt="compressed window" />
 
-![error_window](/res/images/error.png)
-
+<img src="https://raw.githubusercontent.com/MehdizadeMilad/audio-compressor/master/res/images/error.png" width='70%' height='70%' alt="error window" />
 
 ## License
 
